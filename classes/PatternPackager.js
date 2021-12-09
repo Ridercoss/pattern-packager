@@ -2,6 +2,7 @@ const fs = require('fs').promises
 const path = require('path')
 const CsvToJson = require('convert-csv-to-json')
 const uniqid = require('uniqid')
+const moment = require('moment')
 
 /**
  * @class PatternPackager
@@ -23,7 +24,7 @@ class PatternPackager {
 
         if ( mode == 'CHECK' || mode == 'PACK' ) {
             this.Mode = mode
-            this.OperationId = (mode == 'PACK') ? uniqid('pack-') : uniqid('check-')
+            this.OperationId = (mode == 'PACK') ? uniqid.time(`pack-${ moment().format('YYYYMMDD') }-`) : uniqid.time(`check-${ moment().format('YYYYMMDD') }-`)
         } else {
             throw 'ERROR: <mode> requiere valores especificos para identificar la operación a realizar CHECK | PACK'
         }
